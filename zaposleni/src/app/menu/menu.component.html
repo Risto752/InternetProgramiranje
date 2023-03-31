@@ -1,0 +1,87 @@
+
+<div class="container">
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/menu">Reservations</a>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/messages">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/schedule">Flights schedule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/flightline">Flight lines</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/flight">Flights</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Logout</a>
+        </li>
+    </ul>
+  </nav>
+  <h2>Reservations</h2>
+
+  <div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownMenuButton" ngbDropdownToggle>Status</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+      <button ngbDropdownItem (click)="loadNewReservations()">New</button>
+      <button ngbDropdownItem (click)="loadAcceptedReservations()">Accepted</button>
+      <button ngbDropdownItem (click)="loadDeclinedReservations()">Declined</button>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr >
+        <th scope="col">Destination</th>
+        <th scope="col">Depature time</th>
+        <th scope="col">Flight type</th>
+        <th scope="col">Status</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Create time</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td >{{reservation.destination}}</td>
+        <td >{{reservation.takeOffTime}}</td>
+        <td >{{reservation.flightType}}</td>
+        <td id="{{reservation.id}}" >{{reservation.status}}</td>
+        <td >{{reservation.name}}</td>
+        <td >{{reservation.surname}}</td>
+        <td >{{reservation.createTime}}</td>
+        <td *ngIf="reservation.status === 'nova'" id="acceptButton{{reservation.id}}" (click)="acceptReservation(reservation.id)" ><button type="button" class="btn btn-primary">Accept</button></td>
+        <td *ngIf="reservation.status === 'nova'" id="declineButton{{reservation.id}}" (click)="open(mymodal,reservation.id)" ><button type="button" class="btn btn-danger" >Decline</button></td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+<ng-template  #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Decline reason</h4>
+    <button type="button" class="close"  #closebutton aria-label="Close" (click)="modal.dismiss('Cross click')" >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+
+
+      <label for="description">Description: </label>
+      <textarea required  name="description" [(ngModel)]="description"  id="description" type="text" class="form-control"> 
+        </textarea>   
+       </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" [disabled]="description === ''" (click)="declineReservation();modal.dismiss('Cross click')">Ok</button>
+  </div>
+</ng-template>
+

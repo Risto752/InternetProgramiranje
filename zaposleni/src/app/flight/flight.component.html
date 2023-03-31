@@ -1,0 +1,121 @@
+<div class="container">
+    <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/menu">Reservations</a>
+            </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/schedule">Flights schedule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/flightline">Flight lines</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/flight">Flights</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/">Logout</a>
+          </li>
+      </ul>
+    </nav>
+  
+    <h2>Flights</h2>
+
+    <table class="table">
+        <thead>
+          <tr >
+            <th scope="col">Flight line</th>
+            <th scope="col">Flight type</th>
+            <th scope="col">Take off time</th>
+            <th scope="col">Landing time</th>
+            <th scope="col">Delete</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let flight of flights">
+            <td >{{flight.Subject}}</td>
+            <td >{{flight.flighTType}}</td>
+            <td >{{flight.StartTime}}</td>
+            <td >{{flight.EndTime}}</td>
+            <td (click)="deleteFlight(flight.id)" ><button type="button" class="btn btn-danger">Delete</button></td>
+            </tr>
+          
+        </tbody>
+      </table>
+
+      <div class="text-center">
+      <button type="button" class="btn btn-primary" (click)="open(mymodal)" >Add new flight</button>
+    </div>
+
+
+</div>
+
+
+<ng-template   #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add flight</h4>
+      <button type="button" class="close"  #closebutton aria-label="Close" (click)="modal.dismiss('Cross click')" >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+        <form  #flightForm="ngForm" (ngSubmit)="createFlight(flightForm)" novalidate>
+
+            <label for="flightLine" >Flight line</label>
+          <select class="form-select" aria-label="Default select example" name="flightLine" ngModel required>
+            <option *ngFor="let flightLine of flightLines"  [value]="flightLine.id" [ngValue]="flightLine.id"  >
+                {{flightLine.starting_location + " - " + flightLine.destination + "  [" + flightLine.flightType + "]"}} 
+            </option>
+           
+          </select>
+
+            <br>
+
+
+            <label for="flightLine" >Take off date</label><br>
+            <ngb-datepicker #dp ngModel name="takeOffDate" required ></ngb-datepicker>
+      
+          <br>
+
+            <label for="flightLine" >Take off time</label><br>
+            <ngb-timepicker ngModel  name="takeOffTime" required></ngb-timepicker>
+        
+
+      <br><br>
+
+            <label for="flightLine" >Landing date</label><br>
+            <ngb-datepicker #dp ngModel name="landingDate" requried ></ngb-datepicker>
+
+          <br>
+           
+            <label for="flightLine" >Landing time</label><br>
+            <ngb-timepicker ngModel name="landingTime" required ></ngb-timepicker>
+
+       
+
+         
+
+
+
+            <br>
+
+          <button type="submit" class="btn btn-outline-dark" [disabled]="!flightForm.valid"   (click)="modal.dismiss('Cross click')">Ok</button>
+
+
+
+        </form>
+
+          
+
+          </div>
+
+
+
+   
+  </ng-template>
+  

@@ -1,0 +1,75 @@
+
+<div class="container">
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/menu">Reservations</a>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/messages">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/schedule">Flights schedule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/flightline">Flight lines</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/flight">Flights</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Logout</a>
+        </li>
+    </ul>
+  </nav>
+    
+      <h2>Messages</h2>
+    
+     Search by content: <input type="text" (keyup)="filterMessages($event)">
+    
+      <table class="table">
+        <thead>
+          <tr >
+            <th scope="col">Title</th>
+            <th scope="col">Message</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let message of messages">
+            <td >{{message.title}}</td>
+            <td id=message{{message.id}} *ngIf="message.status === 'neprocitana'" style="font-weight: bold;">{{message.message}}</td>
+            <td id=message{{message.id}} *ngIf="message.status === 'procitana'" style="font-weight: normal;">{{message.message}}</td>
+            <td><button type="button" class="btn btn-primary" (click)="open(mymodal,message.id,message.message,message.email,message.title)">Open</button></td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    
+
+    <ng-template  #mymodal let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"></h4>
+        <button type="button" class="close"  #closebutton aria-label="Close" (click)="modal.dismiss('Cross click')" >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Message:
+        <br> 
+        {{message}}
+        <br>
+        <br>
+
+        Response:
+        <textarea type="text" id="answer" [(ngModel)]="answearTextArea" class="md-textarea form-control" mdbInput></textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark"  (click)="answearMessage()">Answer</button>
+        <button type="button" class="btn btn-outline-dark"  (click)="modal.dismiss('Cross click')">Close</button>
+      </div>
+    </ng-template>
+   
+    

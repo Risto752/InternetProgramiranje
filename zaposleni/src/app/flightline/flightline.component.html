@@ -1,0 +1,136 @@
+<div class="container">
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/menu">Reservations</a>
+          </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/messages">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/schedule">Flights schedule</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/flightline">Flight lines</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/flight">Flights</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Logout</a>
+        </li>
+    </ul>
+  </nav>
+  
+    <h2>Flight lines</h2>
+
+    <table class="table">
+        <thead>
+          <tr >
+            <th scope="col">Starting location</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Flight type</th>
+            <th scope="col">Seat count</th>
+            <th scope="col">Cargo description</th>
+            <th scope="col">Delete</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let flightLine of flightLines">
+            <td >{{flightLine.starting_location}}</td>
+            <td >{{flightLine.destination}}</td>
+            <td >{{flightLine.flightType}}</td>
+            <td >{{flightLine.seatCount}}</td>
+            <td >{{flightLine.cargo_description}}</td>
+            <td (click)="deleteFlightLine(flightLine.id)" ><button type="button" class="btn btn-danger">Delete</button></td>
+            </tr>
+          
+        </tbody>
+      </table>
+
+      <div class="text-center">
+      <button type="button" class="btn btn-primary" (click)="open(mymodal)" >Add new flight line</button>
+    </div>
+
+
+</div>
+
+
+<ng-template   #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add flight line</h4>
+      <button type="button" class="close"  #closebutton aria-label="Close" (click)="modal.dismiss('Cross click')" >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <form  #flightLineForm="ngForm" (ngSubmit)="createFlightLine(flightLineForm)" novalidate>
+      
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadio" value="Arrival" ngModel [(ngModel)]="arrivalFlag" (click)="arrivalChosen()"  id="flexRadio1" required  >
+            <label class="form-check-label" for="flexRadio1">
+              Arrival
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadio"  value="Depature" ngModel [(ngModel)]="arrivalFlag" (click)="depatureChosen()" id="flexRadio2" required>
+            <label class="form-check-label" for="flexRadio2">
+              Depature
+            </label>
+          </div>
+
+       
+
+          <label for="cargo_description" [hidden]="!labelDisabled">Starting location</label>
+          <label for="cargo_description" [hidden]="labelDisabled">Destination</label>
+          <select class="form-select" aria-label="Default select example" name="town" ngModel required>
+            <option *ngFor="let town of towns"  [value]="town.id" [ngValue]="town.id"  >
+                {{town.townName}}
+            </option>
+           
+          </select>
+
+
+          <br>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio"  name="flexRadioDefault" ngModel value="Putnicki prevoz" [(ngModel)]="flightType" (click)="passengerChosen()" id="flexRadioDefault1" required >
+            <label class="form-check-label" for="flexRadioDefault1">
+              Passenger
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input"  type="radio"  name="flexRadioDefault" (click)="transportChosen()" ngModel value="Transportni prevoz" [(ngModel)]="flightType" id="flexRadioDefault2" required>
+            <label class="form-check-label" for="flexRadioDefault2">
+              Transport
+            </label>
+          </div>
+        
+
+          <label for="cargo_description" [hidden]="textBoxDisabled">Cargo description</label>
+          <input   name="cargo_description" ngModel [hidden]="textBoxDisabled"  id="cargo_description" type="text" class="form-control">   
+          
+          <label for="seat_count" [hidden]="!textBoxDisabled">Seat count</label>
+          <input   name="seat_count" ngModel [hidden]="!textBoxDisabled"  id="seat_count" type="number" class="form-control">  
+        
+              <br>
+
+
+
+          <button type="submit" class="btn btn-outline-dark" [disabled]="!flightLineForm.valid"   (click)="modal.dismiss('Cross click')">Ok</button>
+
+            </form>
+
+     
+
+          
+
+          </div>
+
+
+
+   
+  </ng-template>
+  

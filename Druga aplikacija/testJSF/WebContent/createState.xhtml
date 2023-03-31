@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+   <h:head>  
+<title>Administrator application</title>  
+<h:outputStylesheet name="/css/bootstrap.min.css"/>  
+</h:head>  
+<h:body>  
+<h:form id="form" class="form-horizontal">  
+<div class="form-group">  
+<div class="col-sm-4"></div>  
+<div  class="col-sm-4">  
+<h2 style="text-align: center">Enter data</h2>  
+</div>  
+</div>  
+<hr/>  
+<div class="form-group">  
+<h:outputLabel for="username" class="control-label col-sm-4">State name</h:outputLabel>  
+<div class="col-sm-4">  
+<h:inputText id="name-id" value="#{stateBean.stateName}" class="form-control"   
+validatorMessage="Molimo unesite drzavu"  label = "Korisnicko ime"  required="true">  
+</h:inputText>
+ <h:message for = "name-id" style = "color:red" />  
+</div>  
+</div>    
+
+<div class="form-group">  
+<div class="col-sm-4"></div>  
+<div class="col-sm-4">  
+<div class="col-sm-2">  
+<h:commandButton value="Save" action="#{stateBean.addState}" class="btn btn-success"   
+style="width: 80px;"></h:commandButton>  
+</div>  
+<div class="col-sm-1">  
+</div>  
+<div class="col-sm-2">  
+<h:link outcome="states" value="Show all states" class="btn btn-primary" />  
+</div>  
+</div>  
+</div>  
+</h:form>  
+</h:body>  
+</html>

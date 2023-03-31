@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>  
+<title>Administrator application</title>  
+<h:outputStylesheet name="/css/bootstrap.min.css"/>  
+<style type="text/css">  
+table {  
+border-collapse: collapse;  
+width: 100%;  
+}  
+th, td {  
+text-align: left;  
+padding: 8px;  
+}  
+  
+tr:nth-child(even){background-color: #f2f2f2}  
+th {  
+background-color: #4CAF50;  
+color: white;  
+}  
+</style>  
+</h:head>  
+<h:body>  
+
+
+
+<h:form>  
+<center><h:commandButton action = "employee.xhtml?faces-redirect=true"   
+value="Employee" class="btn btn-success"></h:commandButton>
+<h:commandButton action = "users.xhtml?faces-redirect=true"   
+value="Users" class="btn btn-success"></h:commandButton>
+<h:commandButton action = "states.xhtml?faces-redirect=true"   
+value="States" class="btn btn-success"></h:commandButton>
+<h:commandButton action = "towns.xhtml?faces-redirect=true"   
+value="Towns" class="btn btn-success"></h:commandButton>
+<h:commandButton action = "login.xhtml?faces-redirect=true"   
+value="Logut" class="btn btn-danger"></h:commandButton></center>
+<center>  
+<h2><h:outputText value="Towns"/></h2>  
+</center>  
+<h:dataTable binding="#{table}" value="#{townBean.allTowns}" var="town"   
+class="table table-striped table-hover table-bordered">  
+<h:column>  
+<f:facet name="header">ID</f:facet>  
+<h:outputText value="#{table.rowIndex + 1}"/>  
+</h:column>  
+<h:column>  
+<f:facet name="header">State</f:facet>  
+<h:outputText value="#{town.stateName}"/>  
+</h:column>   
+<h:column>  
+<f:facet name="header">Town</f:facet>  
+<h:outputText value="#{town.townName}"/>  
+</h:column>    
+<h:column>  
+<f:facet name="header">Update</f:facet>  
+<h:commandButton action = "#{townBean.updateTown(town.townId)}" value="Update" class="btn btn-primary">  
+</h:commandButton>  
+</h:column>  
+<h:column>  
+<f:facet name="header">Delete</f:facet>  
+<h:commandButton action = "#{townBean.deleteTown(town.townId)}" value="Delete" class="btn btn-danger">  
+</h:commandButton>  
+</h:column>  
+</h:dataTable>  
+<center><h:commandButton action = "createTown.xhtml?faces-redirect=true"   
+value="Add new town" class="btn btn-success"></h:commandButton></center>  
+</h:form>  
+</h:body>  
+</html>

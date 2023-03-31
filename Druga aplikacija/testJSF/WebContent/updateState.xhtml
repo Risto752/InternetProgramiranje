@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head/>
+    <h:head>  
+<title>Administrator application</title>  
+<h:outputStylesheet name="/css/bootstrap.min.css"/>  
+</h:head>  
+<h:body>  
+<h:form id="form" class="form-horizontal">  
+<div class="form-group">  
+<div class="col-sm-2"></div>  
+<h2 style="text-align: center" class="col-sm-4">Update state</h2>  
+</div>  
+<hr/>  
+<div class="form-group">  
+<h:outputLabel for="username" class="control-label col-sm-2">State name</h:outputLabel>  
+<div class="col-sm-4">  
+<h:inputText id="name-id" value="#{updateState.stateName}" class="form-control"/>  
+</div>  
+</div>  
+ 
+<div class="form-group">  
+<div class="col-sm-2"></div>  
+<div class="col-sm-4">  
+<center><h:commandButton value="Update" action="#{stateBean.updateStateChosen(updateState)}"   
+class="btn btn-primary" style="width: 80px;"></h:commandButton></center>  
+</div>  
+</div>  
+</h:form>  
+</h:body>  
+</html>
